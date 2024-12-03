@@ -17,3 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::post('/send-message', [ChatController::class, 'sendMessage']);
+Route::middleware('auth')->get('/chat', [ChatController::class, 'showChat'])->name('chat');
+
+Route::get('/search-users', [ChatController::class, 'searchUsers']);
+Route::get('/chat-history/{receiverId}', [ChatController::class, 'chatHistory']);
+// api.php (dành cho API)
+Route::middleware('auth:api')->get('/messages', [MessageController::class, 'getMessages']);  // Lấy tin nhắn
